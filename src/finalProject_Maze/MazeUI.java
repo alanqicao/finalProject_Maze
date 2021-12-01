@@ -24,6 +24,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowEvent;
 import java.awt.BorderLayout;
+import javax.swing.JTextField;
 /**
  * 
  * @author Danny and Qi
@@ -48,6 +49,11 @@ public class MazeUI extends JFrame {
 	private Image img_steps = new ImageIcon(MazeUI.class.getResource("/finalProject_Maze/source/steps.png")).getImage().getScaledInstance(40, 50, Image.SCALE_SMOOTH);
 	private JPanel contentPane;
     int size;
+    private boolean startTiming = false;
+    private JTextField timeText = new Timers();
+    private JTextField textField_1 = new JTextField("0");
+    
+    
     
 	/**
 	 * Launch the application.
@@ -79,6 +85,9 @@ public class MazeUI extends JFrame {
 		contentPane.setBorder(new LineBorder(new Color(0, 0, 128), 2));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		getTimeText().setForeground(Color.BLUE);
+		getTimeText().setFont(new Font("ËÎÌו", Font.PLAIN, 14));
+		getTimeText().setHorizontalAlignment(JTextField.CENTER);
 		
 		JPanel panelMenu = panelMenu();
 		
@@ -176,6 +185,8 @@ public class MazeUI extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				Thread thread = new Thread(runnable);
 				thread.start();
+				setStartTiming(!isStartTiming());
+				((Timers) getTimeText()).start();
 				//Go button!!!!
 			}
 		});
@@ -308,14 +319,10 @@ public class MazeUI extends JFrame {
 		lblNewLabel_6_1.setBounds(58, 14, 46, 14);
 		panel_4_2_2.add(lblNewLabel_6_1);
 		
-		JLabel lblNewLabel_7 = new JLabel("00:00:00");
-		lblNewLabel_7.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_7.setFont(new Font("Dialog", Font.BOLD, 14));
-		lblNewLabel_7.setOpaque(true);
-		lblNewLabel_7.setForeground(new Color(0, 0, 255));
-		lblNewLabel_7.setBackground(new Color(255, 255, 255));
-		lblNewLabel_7.setBounds(114, 11, 96, 19);
-		panel_4_2_2.add(lblNewLabel_7);
+		
+		timeText.setBounds(107, 13, 86, 20);
+		panel_4_2_2.add(timeText);
+		timeText.setColumns(10);
 		
 		JPanel panel_4_2_2_1 = new JPanel();
 		panel_4_2_2_1.setLayout(null);
@@ -335,14 +342,10 @@ public class MazeUI extends JFrame {
 		lblNewLabel_6.setBounds(49, 11, 46, 14);
 		panel_4_2_2_1.add(lblNewLabel_6);
 		
-		JLabel lblNewLabel_7_1 = new JLabel("0");
-		lblNewLabel_7_1.setOpaque(true);
-		lblNewLabel_7_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_7_1.setForeground(new Color(220, 20, 60));
-		lblNewLabel_7_1.setFont(new Font("Dialog", Font.BOLD, 14));
-		lblNewLabel_7_1.setBackground(Color.WHITE);
-		lblNewLabel_7_1.setBounds(116, 9, 96, 19);
-		panel_4_2_2_1.add(lblNewLabel_7_1);
+		
+		textField_1.setBounds(107, 10, 86, 20);
+		panel_4_2_2_1.add(textField_1);
+		textField_1.setColumns(10);
 		
 		JPanel panel_5 = new JPanel();
 		panel_5.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
@@ -352,6 +355,27 @@ public class MazeUI extends JFrame {
 		panel_5.setLayout(new BorderLayout(0, 0));
 		
 
+	}
+	
+	public JTextField getTimeText() {
+		return timeText;
+	}
+	public boolean isStartTiming() {
+		return startTiming;
+	}
+	
+	public void setStartTiming(boolean startTiming) {
+		this.startTiming = startTiming;
+	}
+	
+	public void resetTimer() {
+		setStartTiming(false);
+		getTimeText().setText("00:00:00");
+		((Timers) timeText).restart();
+	}
+	//game stop
+	public void GameOver() {
+		((Timers) getTimeText()).stop();
 	}
 
 	private void spinner(JPanel panel) {
@@ -394,6 +418,4 @@ public class MazeUI extends JFrame {
 		panelMenu.setLayout(null);
 		return panelMenu;
 	}
-
-	
 }
