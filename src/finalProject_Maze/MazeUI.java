@@ -376,7 +376,7 @@ public class MazeUI extends JFrame {
 		lblNewLabel_4_2.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				mazeRun.closeFram();
+				mazeRun.closeFram(); // not good 
 				mazeRun = new mazeRunnable(size,radionButton);
 				mazeThread = new Thread(mazeRun);
 				mazeThread.start();
