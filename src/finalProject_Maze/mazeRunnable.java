@@ -4,9 +4,10 @@ public class mazeRunnable implements Runnable {
 	private int size;
 	private boolean radionButton;
 	private boolean done;
+	private MazeModified newMaze;
 	@Override
 	public void run() {
-		MazeModified newMaze=new MazeModified(size);
+		newMaze=new MazeModified(size);
 		newMaze.start();
 		if(radionButton) {
 			newMaze.solveBFS();
@@ -28,7 +29,9 @@ public class mazeRunnable implements Runnable {
 		return done;
 	}
 	
-	
+	public void closeFram() {
+		newMaze.closeFrame();
+	}
 
 	public mazeRunnable(int size, boolean radionButton) {
 		super();

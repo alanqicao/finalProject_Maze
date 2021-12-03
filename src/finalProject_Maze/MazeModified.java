@@ -292,6 +292,7 @@ public class MazeModified {
 			StdDraw.pause(15);
 		}
 		System.out.println("done");
+		done = true;
 	}
 	// solve the maze using DFS starting from the start state
 	public void solveDFS() {
@@ -341,6 +342,14 @@ public class MazeModified {
 
 	public boolean isDone() {
 		return done;
+	}
+	
+	public void closeFrame() {
+		StdDraw.closeFrame();
+	}
+	
+	public void reSetMaze(){
+		
 	}
 
 

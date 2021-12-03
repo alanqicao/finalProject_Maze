@@ -15,6 +15,8 @@ import javax.swing.border.LineBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+
+
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JSpinner;
@@ -93,7 +95,7 @@ public class MazeUI extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		getTimeText().setForeground(Color.BLUE);
-		getTimeText().setFont(new Font("ËÎÌו", Font.PLAIN, 14));
+		getTimeText().setFont(new Font("Dialog", Font.PLAIN, 14));
 		getTimeText().setHorizontalAlignment(JTextField.CENTER);
 		
 		JPanel panelMenu = panelMenu();
@@ -121,8 +123,6 @@ public class MazeUI extends JFrame {
 		JPanel panel_2 = panel_2(panelMenu);
 		
 		lblNewLabel_3(panel_2);
-		
-		//radio
 		
 		radioButton(panel_2);
 	
@@ -376,7 +376,15 @@ public class MazeUI extends JFrame {
 		lblNewLabel_4_2.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				mazeRun.closeFram();
+				mazeRun = new mazeRunnable(size,radionButton);
+				mazeThread = new Thread(mazeRun);
+				mazeThread.start();
+				resetTimer();
 				
+				if(mazeRun.isDone()) {
+					((Timers) getTimeText()).stop();
+				}
 				//TODO Restart!!!!!!Button
 			}
 		});
@@ -608,14 +616,13 @@ public class MazeUI extends JFrame {
 
 	public void setThreadStop() {
 		if (getThread() != null) {
-//			if (isPromptSolveMaze())
-//				setPromptSolveMaze(false);
+
 			thread.interrupt();
 			setThread(null);
 		}
 	}
 	
-	
+
 	
 	
 }

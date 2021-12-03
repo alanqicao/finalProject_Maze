@@ -1697,6 +1697,10 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
             System.out.println("Error sleeping");
         }
     }
+    
+    public static void closeFrame() {
+    	frame.dispose();
+    }
 
     /**
      * Copies offscreen buffer to onscreen buffer. There is no reason to call
@@ -1711,6 +1715,8 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
     private static void draw() {
         if (!defer) show();
     }
+    
+
 
     /**
      * Enables double buffering. All subsequent calls to 
