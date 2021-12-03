@@ -3,6 +3,8 @@ package finalProject_Maze;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.AbstractButton;
+import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import java.awt.Image;
 import javax.swing.JLabel;
@@ -48,12 +50,14 @@ public class MazeUI extends JFrame {
 	private Image img_time = new ImageIcon(MazeUI.class.getResource("/finalProject_Maze/source/time.png")).getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
 	private Image img_steps = new ImageIcon(MazeUI.class.getResource("/finalProject_Maze/source/steps.png")).getImage().getScaledInstance(40, 50, Image.SCALE_SMOOTH);
 	private JPanel contentPane;
-    int size;
+    private int size;
     private boolean startTiming = false;
     private JTextField timeText = new Timers();
     private JTextField textField_1 = new JTextField("0");
-    
-    
+    private boolean radionButton = false;
+    private JRadioButton dFSRadioButton;
+    private JRadioButton bFSRadioButton;
+
     
 	/**
 	 * Launch the application.
@@ -75,7 +79,7 @@ public class MazeUI extends JFrame {
 	 * Create the frame.
 	 */
 	public MazeUI() {
-		size = 15;//defalu
+		size = 20;//defalu
 		setBackground(new Color(47, 79, 79));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1213, 897);
@@ -115,9 +119,10 @@ public class MazeUI extends JFrame {
 		
 		lblNewLabel_3(panel_2);
 		
-		rdbtnNewRadioButton(panel_2);
+		//radio
 		
-		rdbtnNewRadioButton_1(panel_2);
+		radioButton(panel_2);
+	
 		
 		lblNewLabel_4_2_1_2_1(panel_2);
 		
@@ -129,7 +134,11 @@ public class MazeUI extends JFrame {
 		Runnable runnable=()->{
 			MazeModified newMaze=new MazeModified(size);
 			newMaze.start();
-			newMaze.solveBFS();
+			if(radionButton) {
+				newMaze.solveBFS();
+			}else {
+				newMaze.solveDFS();
+			}
 
 		};
 		
@@ -190,6 +199,44 @@ public class MazeUI extends JFrame {
 		panel_5();
 		
 
+	}
+
+	private void radioButton(JPanel panel_2) {
+		dFSRadioButton = new JRadioButton("Depth First Search");
+		dFSRadioButton.setBackground(new Color(0, 139, 139));
+		dFSRadioButton.setForeground(new Color(255, 255, 255));
+		dFSRadioButton.setFont(new Font("Dialog", Font.BOLD, 15));
+		dFSRadioButton.setBounds(122, 51, 164, 36);
+		panel_2.add(dFSRadioButton);
+		dFSRadioButton.setSelected(true);
+
+		bFSRadioButton = new JRadioButton("Breadth First Search");
+		bFSRadioButton.setBackground(new Color(0, 139, 139));
+		bFSRadioButton.setForeground(new Color(255, 255, 255));
+		bFSRadioButton.setFont(new Font("Dialog", Font.BOLD, 15));
+		bFSRadioButton.setBounds(120, 101, 173, 23);
+		panel_2.add(bFSRadioButton);
+		bFSRadioButton.setSelected(false);
+		ButtonGroup group = new ButtonGroup();
+		group.add(bFSRadioButton);
+		group.add(dFSRadioButton);
+		
+		dFSRadioButton.addActionListener(new ActionListener() {	 
+
+			@Override
+		    public void actionPerformed(ActionEvent event) {	 
+	    	    radionButton = false;		    
+		    	System.out.println(radionButton);
+		    }
+	});
+	
+			bFSRadioButton.addActionListener(new ActionListener() {				 
+			    @Override
+			    public void actionPerformed(ActionEvent event) {		 
+		    	radionButton = true;
+			    System.out.println(radionButton);
+			    }
+		});
 	}
 
 	private void panel_5() {
@@ -422,23 +469,7 @@ public class MazeUI extends JFrame {
 		panel_2.add(lblNewLabel_4_2_1_2_1);
 	}
 
-	private void rdbtnNewRadioButton_1(JPanel panel_2) {
-		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("Breadth First Search");
-		rdbtnNewRadioButton_1.setBackground(new Color(0, 139, 139));
-		rdbtnNewRadioButton_1.setForeground(new Color(255, 255, 255));
-		rdbtnNewRadioButton_1.setFont(new Font("Dialog", Font.BOLD, 15));
-		rdbtnNewRadioButton_1.setBounds(120, 101, 173, 23);
-		panel_2.add(rdbtnNewRadioButton_1);
-	}
 
-	private void rdbtnNewRadioButton(JPanel panel_2) {
-		JRadioButton rdbtnNewRadioButton = new JRadioButton("Depth First Search");
-		rdbtnNewRadioButton.setBackground(new Color(0, 139, 139));
-		rdbtnNewRadioButton.setForeground(new Color(255, 255, 255));
-		rdbtnNewRadioButton.setFont(new Font("Dialog", Font.BOLD, 15));
-		rdbtnNewRadioButton.setBounds(122, 51, 164, 23);
-		panel_2.add(rdbtnNewRadioButton);
-	}
 
 	private void lblNewLabel_3(JPanel panel_2) {
 		JLabel lblNewLabel_3 = new JLabel("Select the  Algorithm to solve the Maze");
@@ -446,6 +477,7 @@ public class MazeUI extends JFrame {
 		lblNewLabel_3.setFont(new Font("Dialog", Font.BOLD, 16));
 		lblNewLabel_3.setBounds(0, 11, 293, 21);
 		panel_2.add(lblNewLabel_3);
+		
 	}
 
 	private JPanel panel_2(JPanel panelMenu) {
@@ -515,7 +547,7 @@ public class MazeUI extends JFrame {
 		JSpinner spinner = new JSpinner();
 		spinner.setBounds(203, 51, 74, 33);
 		panel.add(spinner);
-		spinner.setValue(15);
+		spinner.setValue(20);
 		
 		spinner.addChangeListener(new ChangeListener() {
 			@Override
@@ -551,4 +583,10 @@ public class MazeUI extends JFrame {
 		panelMenu.setLayout(null);
 		return panelMenu;
 	}
+	
+
+	
+	
+	
+	
 }
