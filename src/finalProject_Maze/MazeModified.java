@@ -27,6 +27,7 @@ public class MazeModified {
 	private boolean[][] visited;
 	private boolean done = false;
 	static final int INFINITE = Integer.MAX_VALUE;
+	private int stepNumber;
 
 	/**
 	 * Private class to create a point
@@ -337,6 +338,11 @@ public class MazeModified {
 		draw();
 
 	}
+
+	public boolean isDone() {
+		return done;
+	}
+
 
 	// a test client
 	public static void main(String[] args) {

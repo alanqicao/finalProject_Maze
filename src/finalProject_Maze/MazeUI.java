@@ -52,13 +52,16 @@ public class MazeUI extends JFrame {
 	private JPanel contentPane;
     private int size;
     private boolean startTiming = false;
-    private JTextField timeText = new Timers();
+    private static JTextField timeText = new Timers();
     private JTextField textField_1 = new JTextField("0");
     private boolean radionButton = false;
     private JRadioButton dFSRadioButton;
     private JRadioButton bFSRadioButton;
-
-    
+    private Thread thread = null;
+	private mazeRunnable mazeRun;
+	private Thread mazeThread;
+	private boolean paseToggle = false;
+	private boolean done=false;
 	/**
 	 * Launch the application.
 	 */
@@ -130,19 +133,8 @@ public class MazeUI extends JFrame {
 		
 		JPanel panel_4 = panel_4(panelMenu);
 		
-		//create thread
-		Runnable runnable=()->{
-			MazeModified newMaze=new MazeModified(size);
-			newMaze.start();
-			if(radionButton) {
-				newMaze.solveBFS();
-			}else {
-				newMaze.solveDFS();
-			}
-
-		};
 		
-		lblNewLabel_4(panel_4, runnable);
+		lblNewLabel_4(panel_4,mazeRun);
 		
 		JPanel panel_4_1 = panel_4_1(panelMenu);
 		
@@ -341,10 +333,20 @@ public class MazeUI extends JFrame {
 
 	private void lblNewLabel_4_2_1(JPanel panel_4_2_1) {
 		JLabel lblNewLabel_4_2_1 = new JLabel("");
+		
 		lblNewLabel_4_2_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				//TODO Pause!!!!Button
+				paseToggle = !paseToggle;
+				if(paseToggle) {
+					mazeThread.suspend();;
+					((Timers) getTimeText()).stop();
+				}else {
+					mazeThread.resume();
+					((Timers) getTimeText()).proceed();
+				}
+				
+
 			}
 		});
 		lblNewLabel_4_2_1.setIcon(new ImageIcon(img_pause));
@@ -431,10 +433,15 @@ public class MazeUI extends JFrame {
 		lblNewLabel_4.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Thread thread = new Thread(runnable);
-				thread.start();
+				mazeRun = new mazeRunnable(size,radionButton);
+				mazeThread = new Thread(mazeRun);
+				
+				mazeThread.start();
 				setStartTiming(!isStartTiming());
 				((Timers) getTimeText()).start();
+				if(mazeRun.isDone()) {
+					((Timers) getTimeText()).stop();
+				}
 				//Go button!!!!
 			}
 		});
@@ -522,7 +529,7 @@ public class MazeUI extends JFrame {
 		panel.add(lblNewLabel_2);
 	}
 	
-	public JTextField getTimeText() {
+	public static JTextField getTimeText() {
 		return timeText;
 	}
 	public boolean isStartTiming() {
@@ -538,6 +545,7 @@ public class MazeUI extends JFrame {
 		getTimeText().setText("00:00:00");
 		((Timers) timeText).restart();
 	}
+	
 	//game stop
 	public void GameOver() {
 		((Timers) getTimeText()).stop();
@@ -584,7 +592,28 @@ public class MazeUI extends JFrame {
 		return panelMenu;
 	}
 	
+	/**
+	 * @return the thread
+	 */
+	public Thread getThread() {
+		return thread;
+	}
 
+	/**
+	 * @param thread the thread to set
+	 */
+	private void setThread(Thread thread) {
+		this.thread = thread;
+	}
+
+	public void setThreadStop() {
+		if (getThread() != null) {
+//			if (isPromptSolveMaze())
+//				setPromptSolveMaze(false);
+			thread.interrupt();
+			setThread(null);
+		}
+	}
 	
 	
 	
