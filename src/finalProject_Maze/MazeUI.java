@@ -51,6 +51,8 @@ public class MazeUI extends JFrame {
 	private Image img_computer = new ImageIcon(MazeUI.class.getResource("/finalProject_Maze/source/computer.png")).getImage().getScaledInstance(50, 60, Image.SCALE_SMOOTH);
 	private Image img_time = new ImageIcon(MazeUI.class.getResource("/finalProject_Maze/source/time.png")).getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
 	private Image img_steps = new ImageIcon(MazeUI.class.getResource("/finalProject_Maze/source/steps.png")).getImage().getScaledInstance(40, 50, Image.SCALE_SMOOTH);
+	private Image img_reset = new ImageIcon(MazeUI.class.getResource("/finalProject_Maze/source/reSet.png")).getImage().getScaledInstance(90, 30, Image.SCALE_SMOOTH);
+
 	private JPanel contentPane;
     private int size;
     private boolean startTiming = false;
@@ -65,6 +67,7 @@ public class MazeUI extends JFrame {
 	private boolean done=false;
 	private int stepNumber =0;
 	private static JTextField stepText = new StepNumber();
+	private boolean firtRun = true;
 	/**
 	 * Launch the application.
 	 */
@@ -329,6 +332,27 @@ public class MazeUI extends JFrame {
 		panel_4_2_1_1.setBackground(new Color(0, 139, 139));
 		panel_4_2_1_1.setBounds(319, 26, 215, 80);
 		panel_3.add(panel_4_2_1_1);
+		{
+			JLabel lblNewLabel_4_2 = new JLabel("");
+			lblNewLabel_4_2.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					resetTimer();
+					mazeRun.setRadionButton(radionButton);
+					mazeRun.setSize(size);
+					mazeRun.setMenu(3);
+					mazeThread = new Thread(mazeRun);
+					mazeThread.start();
+					setStartTiming(!isStartTiming());
+					((Timers) getTimeText()).start();
+					//reset
+				}
+			});
+			lblNewLabel_4_2.setIcon(new ImageIcon(img_reset));
+			lblNewLabel_4_2.setHorizontalAlignment(SwingConstants.CENTER);
+			lblNewLabel_4_2.setBounds(82, 11, 123, 58);
+			panel_4_2_1_1.add(lblNewLabel_4_2);
+		}
 		return panel_4_2_1_1;
 	}
 
@@ -379,10 +403,12 @@ public class MazeUI extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				resetTimer();
 				mazeRun.setRadionButton(radionButton);
-				mazeRun.setReSet(true);
+				mazeRun.setMenu(2);
 				mazeThread = new Thread(mazeRun);
 				mazeThread.start();
-				// reset button
+				setStartTiming(!isStartTiming());
+				((Timers) getTimeText()).start();
+				// restart button
 			}
 		});
 		lblNewLabel_4_2.setIcon(new ImageIcon(img_restart));
@@ -438,14 +464,25 @@ public class MazeUI extends JFrame {
 		lblNewLabel_4.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				if(firtRun) {
 				mazeRun = new mazeRunnable(size,radionButton);
+				mazeRun.setMenu(1);;
 				mazeThread = new Thread(mazeRun);
 				
 				mazeThread.start();
 				setStartTiming(!isStartTiming());
 				((Timers) getTimeText()).start();
-				System.out.println(mazeRun.getSetpNumber());
-				
+				firtRun = false;
+				}else {
+					resetTimer();
+					mazeRun.setRadionButton(radionButton);
+					mazeRun.setSize(size);
+					mazeRun.setMenu(3);
+					mazeThread = new Thread(mazeRun);
+					mazeThread.start();
+					setStartTiming(!isStartTiming());
+					((Timers) getTimeText()).start();
+				}
 				//Go button!!!!
 			}
 		});

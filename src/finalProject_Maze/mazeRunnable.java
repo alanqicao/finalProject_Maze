@@ -7,10 +7,54 @@ public class mazeRunnable implements Runnable {
 	private MazeModified newMaze;
 	private int setpNumber;
 	private boolean reSet;
+	private int menu;
+	
 	@Override
 	public void run() {
 
+		switch(menu) {
+		case 1:
+			newMaze=new MazeModified(size);
+			newMaze.start();
+			if(radionButton) {
+			newMaze.solveBFS();	
+		}	else {
+			newMaze.solveDFS();	
+		}
+			checkIsDone(newMaze);
+			updatesetNumber(newMaze);
+			// First time run
+			break;
+		case 2:
+			newMaze.reset();
+			((StepNumber) MazeUI.getstepNumber()).setText("");;
+			if(radionButton) {
+				newMaze.solveBFS();
 		
+			}else {
+				newMaze.solveDFS();	
+			}
+			checkIsDone(newMaze);
+			updatesetNumber(newMaze);
+			// reStart
+			break;
+		case 3:
+			newMaze.resetBoard();
+			newMaze.draw();
+			((StepNumber) MazeUI.getstepNumber()).setText("");;
+			if(radionButton) {
+				newMaze.solveBFS();	
+			}else {
+				newMaze.solveDFS();	
+			}
+			checkIsDone(newMaze);
+			updatesetNumber(newMaze);
+			//reSet
+			break;
+		}
+		
+		
+		/*
 		if(!reSet) {
 			newMaze=new MazeModified(size);
 			newMaze.start();
@@ -34,7 +78,7 @@ public class mazeRunnable implements Runnable {
 			updatesetNumber(newMaze);
 		}
 		
-		
+		*/
 		
 	}
 
@@ -69,6 +113,18 @@ public class mazeRunnable implements Runnable {
 
 	public int getSetpNumber() {
 		return setpNumber;
+	}
+	
+	public void setSize(int size) {
+		this.size = size;
+	}
+
+	public int getMenu() {
+		return menu;
+	}
+
+	public void setMenu(int menu) {
+		this.menu = menu;
 	}
 
 	public mazeRunnable(int size, boolean radionButton) {

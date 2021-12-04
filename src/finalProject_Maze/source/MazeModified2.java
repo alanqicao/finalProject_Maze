@@ -1,4 +1,4 @@
-package finalProject_Maze;
+package finalProject_Maze.source;
 
 
 import edu.princeton.cs.algs4.StdRandom;
@@ -10,7 +10,7 @@ import edu.princeton.cs.algs4.StdRandom;
  * @author Qi Cao
  *
  */
-public class MazeModified {
+public class MazeModified2 {
 	protected int n; // dimension of maze
 	protected boolean[][] north; // is there a wall to north of cell i, j
 	protected boolean[][] east;
@@ -29,7 +29,7 @@ public class MazeModified {
 	 * 
 	 * @param n
 	 */
-	public MazeModified(int n) {
+	public MazeModified2(int n) {
 		this.n = n;
 		this.DFSnumberOfSteps = -1;
 		this.BFSnumberOfSteps = -1;
@@ -151,16 +151,6 @@ public class MazeModified {
 		}
 
 	}
-	
-	public void resetBoard() {
-		this.DFSnumberOfSteps = -1;
-		this.BFSnumberOfSteps = -1;
-		StdDraw.setXscale(0, n + 2);
-		StdDraw.setYscale(0, n + 2);
-		init();
-		generate();
-		StdDraw.clear();
-	}
 
 	/**
 	 * Draws this maze.
@@ -226,14 +216,15 @@ public class MazeModified {
 	
 	// a test client
 	public static void main(String[] args) {
-		int n = 25;
+		int n = 15;
 		MazeModified maze = new MazeModified(n);
 		StdDraw.enableDoubleBuffering();
 		maze.draw();
 		maze.solveDFS();
-		maze.resetBoard();
-		maze.draw();
+		maze.reset();
 		maze.solveBFS();
+		System.out.println(maze.getDFSnumberOfSteps());
+		System.out.println(maze.getBFSnumberOfSteps());
 	}
 
 }
