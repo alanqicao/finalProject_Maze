@@ -14,9 +14,9 @@ public class mazeThread extends Thread{
 			MazeModified newMaze=new MazeModified(size);
 			newMaze.start();
 			if(radionButton) {
-				newMaze.solveBFS();
+				//newMaze.solveBFS();
 			}else {
-				newMaze.solveDFS();
+				//newMaze.solveDFS();
 			}
 			
 		}

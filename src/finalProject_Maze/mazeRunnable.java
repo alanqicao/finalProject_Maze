@@ -10,10 +10,10 @@ public class mazeRunnable implements Runnable {
 		newMaze=new MazeModified(size);
 		newMaze.start();
 		if(radionButton) {
-			newMaze.solveBFS();
+			BFS.drawBFS(newMaze);
 			
 		}else {
-			newMaze.solveDFS();
+			DFS.drawDFS(newMaze);
 			
 		}
 		checkIsDone(newMaze);
@@ -29,9 +29,13 @@ public class mazeRunnable implements Runnable {
 		return done;
 	}
 	
-	public void closeFram() {
-		newMaze.closeFrame();
+	public void reSet() {
+		newMaze.reset();
 	}
+	
+//	public void closeFram() {
+//		newMaze.closeFrame();
+//	}
 
 	public mazeRunnable(int size, boolean radionButton) {
 		super();
