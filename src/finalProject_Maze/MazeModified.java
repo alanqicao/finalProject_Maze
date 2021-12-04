@@ -3,7 +3,6 @@ package finalProject_Maze;
 
 import edu.princeton.cs.algs4.StdRandom;
 
-
 /**
  * Generates and solves a perfect n-by-n maze using various search algorithms.
  * 
@@ -19,8 +18,10 @@ public class MazeModified {
 	protected boolean[][] west;
 	protected boolean[][] visited;
 	protected boolean done = false;
+	private int BFSnumberOfSteps;
+	private int DFSnumberOfSteps;
 	static final int INFINITE = Integer.MAX_VALUE;
-	private int stepNumber;
+
 	
 
 	/**
@@ -30,10 +31,33 @@ public class MazeModified {
 	 */
 	public MazeModified(int n) {
 		this.n = n;
+		this.DFSnumberOfSteps = -1;
+		this.BFSnumberOfSteps = -1;
 		StdDraw.setXscale(0, n + 2);
 		StdDraw.setYscale(0, n + 2);
 		init();
 		generate();
+	}
+
+	/**
+	 * @return the BFSnumberOfSteps
+	 */
+	public int getBFSnumberOfSteps() {
+		return BFSnumberOfSteps;
+	}
+
+	/**
+	 * @return the DFSnumberOfSteps
+	 */
+	public int getDFSnumberOfSteps() {
+		return DFSnumberOfSteps;
+	}
+	
+	/**
+	 * @return If this maze is complete or not.
+	 */
+	public boolean isDone() {
+		return this.done;
 	}
 
 	/**
@@ -167,6 +191,20 @@ public class MazeModified {
 		draw();
 		StdDraw.show();
 	}
+	
+	/**
+	 * Solves this maze using BFS
+	 */
+	public void solveBFS() {
+		this.BFSnumberOfSteps = BFS.solveBFS(this).size();
+	}
+	
+	/**
+	 * Solves this maze using DFS
+	 */
+	public void solveDFS() {
+		this.DFSnumberOfSteps = DFS.solveDFS(this).size();
+	}
 
 	/**
 	 * Method used to draw maze in a thread.
@@ -176,22 +214,17 @@ public class MazeModified {
 		draw();
 	}
 	
-	/**
-	 * Checking if maze is done
-	 * @return
-	 */
-	public boolean isDone() {
-		return done;
-	}
 	// a test client
 	public static void main(String[] args) {
-		int n = 25;
+		int n = 15;
 		MazeModified maze = new MazeModified(n);
 		StdDraw.enableDoubleBuffering();
 		maze.draw();
-		DFS.drawDFS(maze);
+		maze.solveDFS();
 		maze.reset();
-		BFS.drawBFS(maze);
+		maze.solveBFS();
+		System.out.println(maze.getDFSnumberOfSteps());
+		System.out.println(maze.getBFSnumberOfSteps());
 	}
 
 }

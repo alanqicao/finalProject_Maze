@@ -10,27 +10,10 @@ import edu.princeton.cs.algs4.Stack;
  * @author Danny
  *
  */
-public class DFS {
+class DFS {
 
 	/**
-	 * Method that draws the DFS path on the maze
-	 */
-	public static void drawDFS(MazeModified maze) {
-		Stack<Point> s = solveDFS(maze);
-		Stack<Point> reversed = new Stack<>();
-		for (Point p : s) {
-			reversed.push(p);
-		}
-		for (Point p : reversed) {
-			StdDraw.setPenColor(StdDraw.BLUE);
-			StdDraw.filledCircle(p.getX() + 0.5, p.getY() + 0.5, 0.25);
-			StdDraw.show();
-			StdDraw.pause(15);
-		}
-	}
-
-	/**
-	 * Method that solves the maze using DFS and returns a queue with the points on
+	 * Method that solves the maze using DFS and returns a stack with the points on
 	 * the solved route.
 	 * 
 	 * If the returned stack's size is 0, the maze is not solvable and a new maze
@@ -38,21 +21,12 @@ public class DFS {
 	 * 
 	 * @return a Queue with the points on the solved route.
 	 */
-	public static Stack<Point> solveDFS(MazeModified maze) {
+	protected static Stack<Point> solveDFS(MazeModified maze) {
 		return solveDFS(1, 1, maze);
 	}
 
-	/**
-	 * Returns the number of points needed to solve the maze in DFS.
-	 * 
-	 * @return The number of points
-	 */
-	public static int numberOfSteps(MazeModified maze) {
-		return solveDFS(maze).size();
-	}
-
 	/*
-	 * Solves the maze using depth-first search.
+	 * Solves the maze using depth-first search from a certain point
 	 * 
 	 * @param x is the x point to start at
 	 * 
@@ -64,7 +38,6 @@ public class DFS {
 			for (int y1 = 1; y1 <= maze.n; y1++)
 				maze.visited[x1][y1] = false;
 		solveDFS(x, y, s, maze);
-		System.out.println(s.size());
 		return s;
 	}
 
@@ -75,7 +48,7 @@ public class DFS {
 	 * @param y
 	 * @param s
 	 */
-	private static void solveDFS(int x, int y, Stack<Point> s, MazeModified maze) {
+	protected static void solveDFS(int x, int y, Stack<Point> s, MazeModified maze) {
 		if (x == 0 || y == 0 || x == maze.n + 1 || y == maze.n + 1)
 			return;
 		if (maze.done || maze.visited[x][y])
@@ -83,13 +56,16 @@ public class DFS {
 		maze.visited[x][y] = true;
 
 		s.push(new Point(x, y));
+		StdDraw.setPenColor(StdDraw.BLUE);
+		StdDraw.filledCircle(x + 0.5, y + 0.5, 0.25);
+		StdDraw.show();
+		StdDraw.pause(30);
 		
 		// reached middle
 		if (x == maze.n / 2 && y == maze.n / 2)
 			maze.done = true;
 
 		if (!maze.north[x][y]) {
-			//s.push(new Point(x, y + 1));
 			solveDFS(x, y + 1, s, maze);
 		}
 		if (!maze.east[x][y]) {
@@ -106,5 +82,11 @@ public class DFS {
 			return;
 
 		s.pop();
+		StdDraw.setPenColor(StdDraw.WHITE);
+		StdDraw.filledCircle(x + 0.5, y + 0.5, 0.25);
+		StdDraw.setPenColor(StdDraw.BLACK);
+		StdDraw.circle(x + 0.5, y + 0.5, 0.25);
+		StdDraw.show();
+		StdDraw.pause(30);
 	}
 }

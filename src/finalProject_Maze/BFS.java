@@ -10,37 +10,15 @@ import edu.princeton.cs.algs4.Stack;
  * @author Danny
  *
  */
-public class BFS {
-	
-	/**
-	 * Method that draws out the path for a BFS traversal on the maze.
-	 */
-	public static void drawBFS(MazeModified maze) {
-		Stack<Point> path = solveBFS(1, 1, maze);
-		for (Point p : path) {
-			StdDraw.setPenColor(StdDraw.RED);
-			StdDraw.filledCircle(p.getX() + 0.5, p.getY() + 0.5, 0.25);
-			StdDraw.show();
-			StdDraw.pause(15);
-		}
-	}
-	
+class BFS {
+
+	 
 	/**
 	 * Method that solves the maze using BFS
 	 * @return A stack of all the points in the BFS
 	 */
-	public static Stack<Point> solveBFS(MazeModified maze){
+	protected static Stack<Point> solveBFS(MazeModified maze){
 		return solveBFS(1, 1, maze);
-	}
-	
-	/**
-	 * Method that returns the number of steps required to
-	 * solve the maze using BFS.
-	 * 
-	 * @return
-	 */
-	public static int numberOfSteps(MazeModified maze) {
-		return solveBFS(maze).size();
 	}
 
 	/**
@@ -57,11 +35,15 @@ public class BFS {
 		Queue<Point> q = new Queue<>();
 		Stack<Point> endPoint = new Stack<>();
 
+		// set visited all to false
 		for (int i = 1; i <= maze.n; i++)
 			for (int j = 1; j <= maze.n; j++)
 				maze.visited[i][j] = false;
+		
+		// set maze completion status to false
 		maze.done = false;
 
+		// start enqueuing points
 		maze.visited[x][y] = true;
 		Point start = new Point(x, y);
 		start.distance = 0;
@@ -69,7 +51,15 @@ public class BFS {
 
 		// Loop through the maze and visit each node
 		while (!q.isEmpty()) {
+			
+			//find the next point to search
 			Point point = q.dequeue();
+			
+			// Draw points being searched in map
+			StdDraw.setPenColor(StdDraw.ORANGE);
+			StdDraw.filledCircle(point.getX() + 0.5, point.getY() + 0.5, 0.25);
+			StdDraw.show();
+			StdDraw.pause(15);
 
 			// calculate the new distances
 			int newDistance = point.distance + 1;
@@ -116,6 +106,7 @@ public class BFS {
 			}
 		}
 
+		// Create a stack that stores the shortest path
 		Stack<Point> path = new Stack<>();
 		Point shortestPath = new Point(-1, -1);
 		shortestPath.distance = -1;
@@ -128,12 +119,19 @@ public class BFS {
 			path.push(shortestPath);
 			shortestPath = shortestPath.predecessor;
 		}
+		
+		// draw the shortest path in red
 		for (Point p : path) {
 			StdDraw.setPenColor(StdDraw.RED);
 			StdDraw.filledCircle(p.getX() + 0.5, p.getY() + 0.5, 0.25);
 			StdDraw.show();
 			StdDraw.pause(15);
 		}
+		
+		// set maze completion status to done
+		maze.done = true;
+		
+		// return the solved path
 		return path;
 	}
 }

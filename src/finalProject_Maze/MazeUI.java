@@ -55,7 +55,6 @@ public class MazeUI extends JFrame {
     private int size;
     private boolean startTiming = false;
     private static JTextField timeText = new Timers();
-    private JTextField textField_1 = new JTextField("0");
     private boolean radionButton = false;
     private JRadioButton dFSRadioButton;
     private JRadioButton bFSRadioButton;
@@ -64,6 +63,8 @@ public class MazeUI extends JFrame {
 	private Thread mazeThread;
 	private boolean paseToggle = false;
 	private boolean done=false;
+	private int stepNumber =0;
+	private static JTextField stepText = new StepNumber();
 	/**
 	 * Launch the application.
 	 */
@@ -183,11 +184,6 @@ public class MazeUI extends JFrame {
 		
 		lblNewLabel_6(panel_4_2_2_1);
 		
-		
-		textField_1.setBounds(107, 10, 86, 20);
-		panel_4_2_2_1.add(textField_1);
-		textField_1.setColumns(10);
-		
 		panel_5();
 		
 
@@ -262,6 +258,11 @@ public class MazeUI extends JFrame {
 		panel_4_2_2_1.setBackground(new Color(0, 139, 139));
 		panel_4_2_2_1.setBounds(476, 117, 239, 42);
 		panel_3.add(panel_4_2_2_1);
+		
+		
+		stepText.setBounds(99, 10, 86, 20);
+		panel_4_2_2_1.add(stepText);
+		stepText.setColumns(10);
 		return panel_4_2_2_1;
 	}
 
@@ -376,16 +377,12 @@ public class MazeUI extends JFrame {
 		lblNewLabel_4_2.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-								
-				mazeRun = new mazeRunnable(size,radionButton);
+				resetTimer();
+				mazeRun.setRadionButton(radionButton);
+				mazeRun.setReSet(true);
 				mazeThread = new Thread(mazeRun);
 				mazeThread.start();
-				resetTimer();
-				
-				if(mazeRun.isDone()) {
-					((Timers) getTimeText()).stop();
-				}
-				//TODO Restart!!!!!!Button
+				// reset button
 			}
 		});
 		lblNewLabel_4_2.setIcon(new ImageIcon(img_restart));
@@ -447,9 +444,8 @@ public class MazeUI extends JFrame {
 				mazeThread.start();
 				setStartTiming(!isStartTiming());
 				((Timers) getTimeText()).start();
-				if(mazeRun.isDone()) {
-					((Timers) getTimeText()).stop();
-				}
+				System.out.println(mazeRun.getSetpNumber());
+				
 				//Go button!!!!
 			}
 		});
@@ -554,6 +550,10 @@ public class MazeUI extends JFrame {
 		((Timers) timeText).restart();
 	}
 	
+	public static JTextField getstepNumber() {
+		return stepText;
+	}
+	
 	//game stop
 	public void GameOver() {
 		((Timers) getTimeText()).stop();
@@ -621,8 +621,8 @@ public class MazeUI extends JFrame {
 			setThread(null);
 		}
 	}
-	
 
-	
-	
+	public int getStepNumber() {
+		return stepNumber;
+	}
 }
