@@ -66,8 +66,10 @@ public class MazeUI extends JFrame {
 	private boolean paseToggle = false;
 	private boolean done=false;
 	private int stepNumber =0;
-	private static JTextField stepText = new StepNumber();
+	private static JTextField stepText = new StepNumber(null, false);
 	private boolean firtRun = true;
+	private StepNumber stepRun;
+	private Thread stepThread;
 	/**
 	 * Launch the application.
 	 */
@@ -408,6 +410,7 @@ public class MazeUI extends JFrame {
 				mazeThread.start();
 				setStartTiming(!isStartTiming());
 				((Timers) getTimeText()).start();
+				
 				// restart button
 			}
 		});
@@ -472,6 +475,7 @@ public class MazeUI extends JFrame {
 				mazeThread.start();
 				setStartTiming(!isStartTiming());
 				((Timers) getTimeText()).start();
+				
 				firtRun = false;
 				}else {
 					resetTimer();

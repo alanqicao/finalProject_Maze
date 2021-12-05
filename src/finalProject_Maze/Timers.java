@@ -15,7 +15,7 @@ import javax.swing.Timer;
 
 
 /**
- * @author caose_000
+ * @author Qi Cao
  *
  */
 public class Timers extends JTextField { 

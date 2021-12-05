@@ -8,13 +8,17 @@ public class mazeRunnable implements Runnable {
 	private int setpNumber;
 	private boolean reSet;
 	private int menu;
-	
+	private StepNumber stepRun;
+	private Thread stepThread;
 	@Override
 	public void run() {
 
 		switch(menu) {
 		case 1:
 			newMaze=new MazeModified(size);
+			stepRun = new StepNumber(newMaze,radionButton);
+			stepThread = new Thread(stepRun);
+			stepThread.start();
 			newMaze.start();
 			if(radionButton) {
 			newMaze.solveBFS();	
@@ -22,7 +26,9 @@ public class mazeRunnable implements Runnable {
 			newMaze.solveDFS();	
 		}
 			checkIsDone(newMaze);
-			updatesetNumber(newMaze);
+			//updatesetNumber(newMaze);
+			
+			
 			// First time run
 			break;
 		case 2:
@@ -51,34 +57,7 @@ public class mazeRunnable implements Runnable {
 			updatesetNumber(newMaze);
 			//reSet
 			break;
-		}
-		
-		
-		/*
-		if(!reSet) {
-			newMaze=new MazeModified(size);
-			newMaze.start();
-			if(radionButton) {
-			newMaze.solveBFS();	
-		}	else {
-			newMaze.solveDFS();	
-		}
-			checkIsDone(newMaze);
-			updatesetNumber(newMaze);
-
-		}else {
-			newMaze.reset();
-			if(radionButton) {
-				newMaze.solveBFS();
-		
-			}else {
-				newMaze.solveDFS();	
-			}
-			checkIsDone(newMaze);
-			updatesetNumber(newMaze);
-		}
-		
-		*/
+		}	
 		
 	}
 
@@ -102,6 +81,10 @@ public class mazeRunnable implements Runnable {
 		return done;
 	}
 	
+
+	public MazeModified getNewMaze() {
+		return newMaze;
+	}
 
 	public void setReSet(boolean reSet) {
 		this.reSet = reSet;

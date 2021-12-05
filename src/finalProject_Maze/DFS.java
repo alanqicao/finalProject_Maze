@@ -11,7 +11,7 @@ import edu.princeton.cs.algs4.Stack;
  *
  */
 class DFS {
-
+	private static int realTimeDFS;
 	/**
 	 * Method that solves the maze using DFS and returns a stack with the points on
 	 * the solved route.
@@ -54,8 +54,9 @@ class DFS {
 		if (maze.done || maze.visited[x][y])
 			return;
 		maze.visited[x][y] = true;
-
+			
 		s.push(new Point(x, y));
+		realTimeDFS++;
 		StdDraw.setPenColor(StdDraw.BLUE);
 		StdDraw.filledCircle(x + 0.5, y + 0.5, 0.25);
 		StdDraw.show();
@@ -89,4 +90,9 @@ class DFS {
 		StdDraw.show();
 		StdDraw.pause(30);
 	}
+
+	public static int getRealTimeDFS() {
+		return realTimeDFS;
+	}
+
 }

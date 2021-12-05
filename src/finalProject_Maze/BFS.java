@@ -12,7 +12,7 @@ import edu.princeton.cs.algs4.Stack;
  */
 class BFS {
 
-	 
+	 private static int realTimeBFS;
 	/**
 	 * Method that solves the maze using BFS
 	 * @return A stack of all the points in the BFS
@@ -118,6 +118,7 @@ class BFS {
 		while (shortestPath.getPredecessor() != null) {
 			path.push(shortestPath);
 			shortestPath = shortestPath.predecessor;
+			realTimeBFS++;
 		}
 		
 		// draw the shortest path in red
@@ -134,4 +135,10 @@ class BFS {
 		// return the solved path
 		return path;
 	}
+
+	public static int getRealTimeStep() {
+		return realTimeBFS;
+	}
+
+
 }
