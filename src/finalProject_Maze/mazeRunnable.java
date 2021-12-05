@@ -17,7 +17,7 @@ public class mazeRunnable implements Runnable {
 		case 1:
 			newMaze=new MazeModified(size);			
 			newMaze.start();
-			stepRunRealTime();
+			stepRunRealTime(newMaze,radionButton);
 			if(radionButton) {
 			newMaze.solveBFS();	
 		}	else {
@@ -59,10 +59,12 @@ public class mazeRunnable implements Runnable {
 		
 	}
 
-	private void stepRunRealTime() {
-		stepRun = new StepNumber(newMaze,radionButton);
-		stepThread = new Thread(stepRun);
-		stepThread.start();
+	private void stepRunRealTime(MazeModified newMaze,boolean radionButton) {
+		StepNumber stepRun = new StepNumber(newMaze,radionButton);
+		Thread threadStep = new Thread(stepRun);
+		
+	     threadStep.start();
+		//((StepNumber) MazeUI.getstepNumber()).updateSteps(newMaze);
 	}
 
 	private void checkIsDone(MazeModified newMaze) {

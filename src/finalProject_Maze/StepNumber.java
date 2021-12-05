@@ -30,22 +30,40 @@ public class StepNumber extends JTextField implements Runnable {
 		setText(Integer.toString(newMaze.getRealTimeStepsBFS()));
 		//setText(Integer.toString(newMaze.getBFSnumberOfSteps()));
 	}
+	
+	public void updateSteps(MazeModified newMaze) {
+		setText("in while loop");
+		while(!newMaze.done) {
+			if(radionButton) {
+				setBFSStepNumber(newMaze);
+				System.out.println(newMaze.getRealTimeStepsBFS());
+				//setText(Integer.toString(newMaze.getRealTimeStepsBFS()));
+				//this.setText("BFS");
+				
+			}else {
+				setDFSStepNumber(newMaze);
+				//setText(Integer.toString(newMaze.getRealTimeStesDFS()));
+				System.out.println(newMaze.getRealTimeStesDFS());
+				//this.setText("DFS");
+			}
+		}
+	}
 
 	@Override
 	public void run() {
-		this.setText("BFS");
+		setText("in Thread");
 		while(!newMaze.done) {
 			if(radionButton) {
-				//setBFSStepNumber(newMaze);
-				//System.out.println(newMaze.getRealTimeStepsBFS());
+				setBFSStepNumber(newMaze);
+				System.out.println(newMaze.getRealTimeStepsBFS());
 				//setText(Integer.toString(newMaze.getRealTimeStepsBFS()));
-				this.setText("BFS");
+				//this.setText("BFS");
 				
 			}else {
-				//setDFSStepNumber(newMaze);
+				setDFSStepNumber(newMaze);
 				//setText(Integer.toString(newMaze.getRealTimeStesDFS()));
-				//System.out.println(newMaze.getRealTimeStesDFS());
-				this.setText("DFS");
+				System.out.println(newMaze.getRealTimeStesDFS());
+				//this.setText("DFS");
 			}
 		}
 		
