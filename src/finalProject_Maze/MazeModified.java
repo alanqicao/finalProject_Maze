@@ -21,8 +21,8 @@ public class MazeModified {
 	private int BFSnumberOfSteps;
 	private int DFSnumberOfSteps;
 	static final int INFINITE = Integer.MAX_VALUE;
-	private int realTimeStepsBFS;
-	private int realTimeStesDFS;
+	protected int realTimeStepsBFS;
+	protected int realTimeStesDFS;
 
 	/**
 	 * Constructor to generate a <code>N</code>x<code>N</code> maze.
@@ -53,13 +53,7 @@ public class MazeModified {
 		return DFSnumberOfSteps;
 	}
 	
-	public int getRealTimeBFS() {
-		return BFS.getRealTimeStep();
-	}
-	
-	public int getRealTimeDFS() {
-		return DFS.getRealTimeDFS();
-	}
+
 
 	/**
 	 * @return If this maze is complete or not.
@@ -212,6 +206,14 @@ public class MazeModified {
 		this.done = false;
 		draw();
 		StdDraw.show();
+	}
+
+	public int getRealTimeStepsBFS() {
+		return realTimeStepsBFS;
+	}
+
+	public int getRealTimeStesDFS() {
+		return realTimeStesDFS;
 	}
 
 	/**

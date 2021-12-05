@@ -15,11 +15,9 @@ public class mazeRunnable implements Runnable {
 
 		switch(menu) {
 		case 1:
-			newMaze=new MazeModified(size);
-			stepRun = new StepNumber(newMaze,radionButton);
-			stepThread = new Thread(stepRun);
-			stepThread.start();
+			newMaze=new MazeModified(size);			
 			newMaze.start();
+			stepRunRealTime();
 			if(radionButton) {
 			newMaze.solveBFS();	
 		}	else {
@@ -59,6 +57,12 @@ public class mazeRunnable implements Runnable {
 			break;
 		}	
 		
+	}
+
+	private void stepRunRealTime() {
+		stepRun = new StepNumber(newMaze,radionButton);
+		stepThread = new Thread(stepRun);
+		stepThread.start();
 	}
 
 	private void checkIsDone(MazeModified newMaze) {
