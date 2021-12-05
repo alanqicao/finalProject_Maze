@@ -22,8 +22,6 @@ public class MazeModified {
 	private int DFSnumberOfSteps;
 	static final int INFINITE = Integer.MAX_VALUE;
 
-	
-
 	/**
 	 * Constructor to generate a <code>N</code>x<code>N</code> maze.
 	 * 
@@ -52,7 +50,7 @@ public class MazeModified {
 	public int getDFSnumberOfSteps() {
 		return DFSnumberOfSteps;
 	}
-	
+
 	/**
 	 * @return If this maze is complete or not.
 	 */
@@ -151,10 +149,14 @@ public class MazeModified {
 		}
 
 	}
-	
+
+	/**
+	 * Resets this board to a new random n-n maze
+	 */
 	public void resetBoard() {
 		this.DFSnumberOfSteps = -1;
 		this.BFSnumberOfSteps = -1;
+		this.done = false;
 		StdDraw.setXscale(0, n + 2);
 		StdDraw.setYscale(0, n + 2);
 		init();
@@ -186,29 +188,29 @@ public class MazeModified {
 		StdDraw.show();
 		StdDraw.pause(1000);
 	}
-	
+
 	/**
 	 * Redraws the board and sets all visited to false.
 	 */
 	public void reset() {
-		for(int i = 0; i < n + 1; i++) {
-			for(int j = 0; j < n + 1; j++) {
+		StdDraw.clear();
+		for (int i = 0; i < n + 1; i++) {
+			for (int j = 0; j < n + 1; j++) {
 				visited[i][j] = false;
 			}
 		}
 		this.done = false;
-		StdDraw.clear();
 		draw();
 		StdDraw.show();
 	}
-	
+
 	/**
 	 * Solves this maze using BFS
 	 */
 	public void solveBFS() {
 		this.BFSnumberOfSteps = BFS.solveBFS(this).size();
 	}
-	
+
 	/**
 	 * Solves this maze using DFS
 	 */
@@ -223,7 +225,7 @@ public class MazeModified {
 		StdDraw.enableDoubleBuffering();
 		draw();
 	}
-	
+
 	// a test client
 	public static void main(String[] args) {
 		int n = 25;
