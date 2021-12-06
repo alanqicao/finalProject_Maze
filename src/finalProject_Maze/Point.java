@@ -1,5 +1,10 @@
 package finalProject_Maze;
 
+/**
+ * 
+ * @author Danny
+ *
+ */
 class Point {
 	int x; // stores x value
 	int y; // stores y value

@@ -6,14 +6,11 @@ package finalProject_Maze;
 import javax.swing.JTextField;
 
 /**
+ * Calculate step numbers and write to GUI
  * @author Qi Cao
  *
  */
 public class StepNumber extends JTextField  {
-
-	/**
-	 * 
-	 */
 
 	
 	public StepNumber() {

@@ -599,7 +599,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
     // set of key codes currently pressed down
     private static TreeSet<Integer> keysDown;
     
-    private Thread thread = null;
+
     // singleton pattern: client can't instantiate
     private StdDraw() { }
 
@@ -685,7 +685,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);            // closes all windows
         frame.setUndecorated(true);
         // frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);      // closes only current window
-        //frame.setTitle("");
+        //frame.setTitle("");                                          
         //frame.setJMenuBar(createMenuBar());
         frame.pack();
         frame.requestFocusInWindow();

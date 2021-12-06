@@ -1,12 +1,16 @@
 package finalProject_Maze;
-
+/**
+ * A Runnable class 
+ * @author Qi
+ *
+ */
 public class mazeRunnable implements Runnable {
 	private int size;
 	private boolean radionButton;
 	private boolean done;
 	private MazeModified newMaze;
 	private int setpNumber;
-	private boolean reSet;
+
 	private int menu;
 	
 	@Override
@@ -26,6 +30,7 @@ public class mazeRunnable implements Runnable {
 			// First time run
 			break;
 		case 2:
+			newMaze.n = size;
 			newMaze.reset();
 			((StepNumber) MazeUI.getstepNumber()).setText("");;
 			if(radionButton) {
@@ -39,6 +44,7 @@ public class mazeRunnable implements Runnable {
 			// reStart
 			break;
 		case 3:
+			newMaze.n = size;
 			newMaze.resetBoard();
 			newMaze.draw();
 			((StepNumber) MazeUI.getstepNumber()).setText("");;
@@ -52,33 +58,6 @@ public class mazeRunnable implements Runnable {
 			//reSet
 			break;
 		}
-		
-		
-		/*
-		if(!reSet) {
-			newMaze=new MazeModified(size);
-			newMaze.start();
-			if(radionButton) {
-			newMaze.solveBFS();	
-		}	else {
-			newMaze.solveDFS();	
-		}
-			checkIsDone(newMaze);
-			updatesetNumber(newMaze);
-
-		}else {
-			newMaze.reset();
-			if(radionButton) {
-				newMaze.solveBFS();
-		
-			}else {
-				newMaze.solveDFS();	
-			}
-			checkIsDone(newMaze);
-			updatesetNumber(newMaze);
-		}
-		
-		*/
 		
 	}
 
@@ -101,11 +80,8 @@ public class mazeRunnable implements Runnable {
 	public boolean isDone() {
 		return done;
 	}
-	
 
-	public void setReSet(boolean reSet) {
-		this.reSet = reSet;
-	}
+
 
 	public void setRadionButton(boolean radionButton) {
 		this.radionButton = radionButton;

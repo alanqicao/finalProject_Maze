@@ -30,8 +30,8 @@ import java.awt.event.WindowEvent;
 import java.awt.BorderLayout;
 import javax.swing.JTextField;
 /**
- * 
- * @author Danny and Qi
+ * GUI class control the program 
+ * @author Qi Cao and Danny Dwyer
  *
  */
 public class MazeUI extends JFrame {
@@ -108,72 +108,44 @@ public class MazeUI extends JFrame {
 		lblcone.setIcon(new ImageIcon(img_logo));
 		lblcone.setBounds(25, 65, 287, 123);
 		
-		panelMenu.add(lblcone);	
-		
-		JPanel panel = panel(panelMenu);
-		
-		lbNewLabel_1(panel);
-		
-		spinner(panel);
-			
-		lblNewLabel_2(panel);
-		
-		lblNewLabel_4_2_1_2(panel);
-		
-		JPanel panel_1 = panel_1(panelMenu);
-		
+		panelMenu.add(lblcone);			
+		JPanel panel = panel(panelMenu);		
+		lbNewLabel_1(panel);	
+		spinner(panel);			
+		lblNewLabel_2(panel);		
+		lblNewLabel_4_2_1_2(panel);		
+		JPanel panel_1 = panel_1(panelMenu);		
 		lblNewLabel(panel_1);
-		
-		JPanel panel_2 = panel_2(panelMenu);
-		
-		lblNewLabel_3(panel_2);
-		
-		radioButton(panel_2);
-	
-		
-		lblNewLabel_4_2_1_2_1(panel_2);
-		
+		//panel 2
+		JPanel panel_2 = panel_2(panelMenu);	
+		lblNewLabel_3(panel_2);		
+		radioButton(panel_2);		
+		lblNewLabel_4_2_1_2_1(panel_2);	
 		lblNewLabel_4_2_1_2_1_1(panel_2);
-		
-		JPanel panel_4 = panel_4(panelMenu);
-		
-		
-		lblNewLabel_4(panel_4,mazeRun);
-		
-		JPanel panel_4_1 = panel_4_1(panelMenu);
-		
+		//panel 4
+		JPanel panel_4 = panel_4(panelMenu);				
+		lblNewLabel_4(panel_4,mazeRun);	
+		JPanel panel_4_1 = panel_4_1(panelMenu);		
 		lblNewLabel_4_1(panel_4_1);
-		
-		JPanel panel_3 = panel_3();
-		
-		JPanel panel_4_2 = panel_4_2(panel_3);
-		
-		lblNewLabel_4_2(panel_4_2);
-		
-		lblNewLabel_4_3(panel_4_2);
-		
-		JPanel panel_4_2_1 = panel_4_2_1(panel_3);
-		
-		lblNewLabel_4_2_1(panel_4_2_1);
-		
+		//panel3
+		JPanel panel_3 = panel_3();		
+		JPanel panel_4_2 = panel_4_2(panel_3);	
+		//panel4_2
+		lblNewLabel_4_2(panel_4_2);	
+		lblNewLabel_4_3(panel_4_2);		
+		JPanel panel_4_2_1 = panel_4_2_1(panel_3);	
+		lblNewLabel_4_2_1(panel_4_2_1);	
 		lblNewLabel_4_3(panel_4_2_1);
-		
-		JPanel panel_4_2_1_1 = panel_4_2_1_1(panel_3);
-		
-		lblNewLabel_4_2_1_1(panel_4_2_1_1);
-		
-		lblNewLabel_4_3_1_1(panel_4_2_1_1);
-		
-		JPanel panel_4_2_1_1_1 = panel_4_2_1_1_1(panel_3);
-		
-		lblNewLabel_4_2_1_1_1(panel_4_2_1_1_1);
-		
+		//panel 4_2_1_1
+		JPanel panel_4_2_1_1 = panel_4_2_1_1(panel_3);		
+		lblNewLabel_4_2_1_1(panel_4_2_1_1);	
+		lblNewLabel_4_3_1_1(panel_4_2_1_1);		
+		JPanel panel_4_2_1_1_1 = panel_4_2_1_1_1(panel_3);		
+		lblNewLabel_4_2_1_1_1(panel_4_2_1_1_1);		
 		lblNewLabel_4_3_1_1(panel_4_2_1_1_1);
-		
-		JPanel panel_4_2_2 = panel_4_2_2(panel_3);
-		
-		lblNewLabel_4_2_2(panel_4_2_2);
-		
+		//panel 4_2_2_2
+		JPanel panel_4_2_2 = panel_4_2_2(panel_3);		
+		lblNewLabel_4_2_2(panel_4_2_2);		
 		lblNewLabel_6_1(panel_4_2_2);
 		
 		
@@ -181,12 +153,9 @@ public class MazeUI extends JFrame {
 		panel_4_2_2.add(timeText);
 		timeText.setColumns(10);
 		
-		JPanel panel_4_2_2_1 = panel_4_2_2_1(panel_3);
-		
-		lblNewLabel_4_2_2_1(panel_4_2_2_1);
-		
-		lblNewLabel_6(panel_4_2_2_1);
-		
+		JPanel panel_4_2_2_1 = panel_4_2_2_1(panel_3);		
+		lblNewLabel_4_2_2_1(panel_4_2_2_1);		
+		lblNewLabel_6(panel_4_2_2_1);		
 		panel_5();
 		
 
@@ -345,7 +314,7 @@ public class MazeUI extends JFrame {
 					mazeThread.start();
 					setStartTiming(!isStartTiming());
 					((Timers) getTimeText()).start();
-					//reset
+					//Reset button
 				}
 			});
 			lblNewLabel_4_2.setIcon(new ImageIcon(img_reset));
@@ -369,9 +338,7 @@ public class MazeUI extends JFrame {
 				}else {
 					mazeThread.resume();
 					((Timers) getTimeText()).proceed();
-				}
-				
-
+				}				
 			}
 		});
 		lblNewLabel_4_2_1.setIcon(new ImageIcon(img_pause));

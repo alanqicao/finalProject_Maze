@@ -15,7 +15,8 @@ import javax.swing.Timer;
 
 
 /**
- * @author caose_000
+ * Timer class that extends Jtext to write on GUI
+ * @author Qi Cao
  *
  */
 public class Timers extends JTextField { 
